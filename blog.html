@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dopaminemaxxing — John Nesbit</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0f1116;
+      --card: #181b22;
+      --text: #e0e0e0;
+      --muted: #a0a0a0;
+      --accent: #ffb86c;
+      --link-hover: #ffd580;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Georgia", serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding: 2rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-family: "Inter", system-ui, sans-serif;
+      font-size: 2rem;
+      margin-bottom: 0.3rem;
+    }
+
+    header p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--link-hover);
+    }
+
+    main {
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .post-list {
+      list-style: none;
+      padding: 0;
+      margin-bottom: 3rem;
+      border-top: 1px solid #222;
+      border-bottom: 1px solid #222;
+    }
+
+    .post-list li {
+      padding: 1rem 0;
+      border-bottom: 1px solid #222;
+    }
+
+    .post-list a {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .date {
+      font-size: 0.85rem;
+      color: var(--muted);
+      display: block;
+      margin-top: 0.2rem;
+    }
+
+    article {
+      background-color: var(--card);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    article h2 {
+      font-family: "Inter", system-ui, sans-serif;
+      margin-top: 0;
+      color: var(--accent);
+    }
+
+    article p {
+      margin: 1rem 0;
+    }
+
+    footer {
+      margin-top: 3rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Dopa-Maxxing</h1>
+    <p>thought experiments, data explorations, and tales from the confusion</p>
+  </header>
+
+  <main>
+    <!-- Blog Post List -->
+    <ul class="post-list">
+      <li>
+        <a href="#post1">Reflections</a>
+        <span class="date">October 2025</span>
+      </li>
+      <li>
+        <a href="#post2">Building My Own Hashmap</a>
+        <span class="date">September 2025</span>
+      </li>
+      <li>
+        <a href="#post3">Woodworking: Poplar Bar Countertop Project</a>
+        <span class="date">August 2025</span>
+      </li>
+    </ul>
+
+    <!-- Example Post -->
+    <article id="post1">
+      <h2>Reflections</h2>
+      <p>
+        I 
+      </p>
+      <p>
+        One thing
+      </p>
+      <p>
+        I’ll write more later 
+      </p>
+    </article>
+  </main>
+
+  <footer>
+    <p><a href="index.html">← Back to home</a></p>
+    <p>© 2025 John Nesbit</p>
+  </footer>
+</body>
+</html>
