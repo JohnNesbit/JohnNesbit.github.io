@@ -1,445 +1,349 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>John Nesbit - Computer Science</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>John Nesbit</title>
+  <meta name="description" content="John Nesbit, computer science student at Georgia Tech working on low-latency systems.">
+  <script>document.documentElement.classList.add('js');</script>
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #6b6b6b;
+      --rule: #e6e6e6;
+      --link: #1d4ed8;
+    }
 
-        body {
-            font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
-            line-height: 1.6;
-            color: #2c3e50;
-            background-color: #f8f9fa;
-        }
+    * { box-sizing: border-box; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 30px;
-            background-color: white;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 50px;
-        }
+    html { -webkit-text-size-adjust: 100%; }
 
-        /* Left Sidebar */
-        .sidebar {
-            padding: 20px;
-            border-right: 2px solid #e0e0e0;
-        }
+    body {
+      margin: 0;
+      background: #fff;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+    }
 
-        .profile-photo {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            margin: 0 auto 25px;
-            display: block;
-            object-fit: cover;
-            border: 4px solid #2c3e50;
-        }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-        .sidebar h1 {
-            font-size: 1.8em;
-            font-weight: 400;
-            letter-spacing: 1px;
-            text-align: center;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-        }
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 64px 20px 48px;
+    }
 
-        .sidebar .title {
-            text-align: center;
-            font-style: italic;
-            color: #666;
-            margin-bottom: 25px;
-            font-size: 0.95em;
-        }
+    /* Header */
+    header {
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+    }
 
-        .contact-section {
-            margin-bottom: 30px;
-        }
+    .headshot {
+      width: 160px;
+      height: 160px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      object-fit: cover;
+    }
 
-        .contact-section h3 {
-            font-size: 1em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-            padding-bottom: 5px;
-            border-bottom: 1px solid #bdc3c7;
-        }
+    h1 {
+      margin: 4px 0 2px;
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
 
-        .contact-list {
-            list-style: none;
-            margin-left: 0;
-        }
+    .tagline { margin: 0 0 12px; color: var(--muted); }
 
-        .contact-list li {
-            margin-bottom: 10px;
-            font-size: 0.9em;
-        }
+    .bio { margin: 0 0 12px; }
 
-        .contact-list a {
-            color: #2c3e50;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            transition: color 0.3s;
-        }
+    .links { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 4px 18px; }
 
-        .contact-list a:hover {
-            color: #3498db;
-        }
+    /* Tabs */
+    nav {
+      margin-top: 48px;
+      border-bottom: 1px solid var(--rule);
+      display: flex;
+      gap: 28px;
+    }
 
-        .contact-list a::before {
-            content: "→";
-            margin-right: 8px;
-            font-weight: bold;
-        }
+    nav a {
+      display: block;
+      padding: 8px 0;
+      margin-bottom: -1px;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      font-weight: 500;
+    }
 
-        .links-section {
-            margin-top: 30px;
-        }
+    nav a:hover { color: var(--text); text-decoration: none; }
+    nav a[aria-selected="true"] { color: var(--text); border-bottom-color: var(--text); }
 
-        .links-section h3 {
-            font-size: 1em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-            padding-bottom: 5px;
-            border-bottom: 1px solid #bdc3c7;
-        }
+    /* Sliding panels (only when JS is on; otherwise they simply stack) */
+    .js .viewport { overflow: hidden; overflow: clip; transition: height 0.35s ease; }
+    .js .track { display: flex; width: 200%; align-items: flex-start; transition: transform 0.35s ease; }
+    .js .panel { width: 50%; }
+    .js .track.show-blog { transform: translateX(-50%); }
 
-        .links-list {
-            list-style: none;
-            margin-left: 0;
-        }
+    @media (prefers-reduced-motion: reduce) {
+      .js .viewport, .js .track { transition: none; }
+    }
 
-        .links-list li {
-            margin-bottom: 12px;
-        }
+    .panel { padding-top: 8px; }
 
-        .links-list a {
-            color: #2c3e50;
-            text-decoration: none;
-            font-size: 0.9em;
-            display: block;
-            transition: color 0.3s;
-        }
+    h2 {
+      margin: 36px 0 12px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
 
-        .links-list a:hover {
-            color: #3498db;
-        }
+    /* Resume entries */
+    .entry { margin-bottom: 20px; }
 
-        .link-description {
-            font-size: 0.8em;
-            color: #888;
-            margin-top: 2px;
-        }
+    .entry-head { display: flex; justify-content: space-between; gap: 16px; }
+    .entry-head strong { font-weight: 600; }
+    .date { color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .role { color: var(--muted); }
 
-        /* Right Content Area */
-        .content {
-            padding: 20px 0;
-        }
+    .entry ul { margin: 6px 0 0; padding-left: 20px; }
+    .entry li { margin-bottom: 4px; }
 
-        .content h2 {
-            font-size: 1.4em;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 35px;
-            margin-bottom: 20px;
-            padding-bottom: 8px;
-            border-bottom: 1px solid #bdc3c7;
-        }
+    .skills { margin: 0; }
+    .skills div { margin-bottom: 4px; }
+    .skills dt { display: inline; font-weight: 600; }
+    .skills dd { display: inline; margin: 0; }
 
-        .content h2:first-child {
-            margin-top: 0;
-        }
+    /* Blog */
+    .blog-intro { margin: 28px 0 8px; color: var(--muted); }
 
-        h3 {
-            font-size: 1.1em;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
+    .post-list { list-style: none; margin: 0; padding: 0; }
+    .post-list li { display: flex; justify-content: space-between; gap: 16px; padding: 6px 0; }
 
-        .entry {
-            margin-bottom: 25px;
-        }
+    article { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--rule); }
+    article h3 { margin: 0; font-size: 22px; font-weight: 600; }
+    article .date { display: block; margin-bottom: 20px; }
+    article p { font-family: Georgia, "Times New Roman", serif; font-size: 18px; line-height: 1.7; margin: 0 0 18px; }
+    article img { display: block; max-width: 100%; height: auto; margin: 0 0 24px; }
+    article img.portrait { max-width: 360px; }
 
-        .entry-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 5px;
-        }
+    footer { margin-top: 64px; color: var(--muted); font-size: 14px; }
 
-        .entry-title {
-            font-weight: 600;
-        }
-
-        .entry-date {
-            font-style: italic;
-            color: #666;
-            font-size: 0.9em;
-        }
-
-        .entry-subtitle {
-            font-style: italic;
-            color: #555;
-            margin-bottom: 8px;
-        }
-
-        ul {
-            margin-left: 20px;
-            margin-top: 8px;
-        }
-
-        li {
-            margin-bottom: 6px;
-        }
-
-        .skills-grid {
-            display: grid;
-            gap: 12px;
-        }
-
-        .skill-category {
-            margin-bottom: 8px;
-        }
-
-        .skill-label {
-            font-weight: 600;
-        }
-
-        .education-details {
-            margin-top: 8px;
-            font-size: 0.95em;
-            color: #555;
-        }
-
-        .publication {
-            font-style: italic;
-            margin-bottom: 12px;
-        }
-
-        strong {
-            font-weight: 600;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 968px) {
-            .container {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .sidebar {
-                border-right: none;
-                border-bottom: 2px solid #e0e0e0;
-                padding-bottom: 30px;
-            }
-
-            .profile-photo {
-                width: 150px;
-                height: 150px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 20px 15px;
-            }
-
-            .entry-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-    </style>
+    @media (max-width: 600px) {
+      .page { padding: 40px 16px 32px; }
+      header { flex-direction: column; gap: 20px; }
+      .headshot { width: 120px; height: 120px; }
+      .entry-head { flex-direction: column; gap: 0; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Left Sidebar -->
-        <aside class="sidebar">
-            <!-- Replace 'your-photo.jpg' with your actual photo -->
-            <img src="headshot.png" alt="John Nesbit" class="profile-photo">
-            
-            <h1>John Nesbit</h1>
-            <div class="title">Computer Science Student</div>
+  <div class="page">
+    <header>
+      <img src="headshot.jpg" alt="Photo of John Nesbit" class="headshot" width="160" height="160">
+      <div>
+        <h1>John Nesbit</h1>
+        <p class="tagline">Computer Science, Georgia Tech</p>
+        <p class="bio">
+          I'm a CS student at Georgia Tech studying systems and networking. Most of what I build is
+          low-latency C++. This past summer I was a trading systems engineering intern at
+          Susquehanna International Group.
+        </p>
+        <ul class="links">
+          <li><a href="mailto:johnmnes06@gmail.com">Email</a></li>
+          <li><a href="https://github.com/JohnNesbit">GitHub</a></li>
+          <li><a href="https://linkedin.com/in/JohnNesbitCS/">LinkedIn</a></li>
+          <li><a href="resume.pdf">Resume (PDF)</a></li>
+        </ul>
+      </div>
+    </header>
 
-            <div class="contact-section">
-                <h3>Contact</h3>
-                <ul class="contact-list">
-                    <li><a href="mailto:johnmnes06@gmail.com">Email</a></li>
-                    <li><a href="tel:706-224-5083">706-224-5083</a></li>
-                    <li><a href="https://linkedin.com/in/JohnNesbitCS/" target="_blank">LinkedIn</a></li>
-                    <li><a href="https://github.com/JohnNesbit" target="_blank">GitHub</a></li>
-                </ul>
-            </div>
+    <nav role="tablist" aria-label="Sections">
+      <a href="#resume" id="tab-resume" role="tab" aria-controls="resume-panel" aria-selected="true">Resume</a>
+      <a href="#blog" id="tab-blog" role="tab" aria-controls="blog-panel" aria-selected="false">Blog</a>
+    </nav>
 
-            <div class="links-section">
-                <h3>Writing & Projects</h3>
-                <ul class="links-list">
-                    <li>
-                        <a href="#">Blog Post Title</a>
-                        <div class="link-description">Brief description of the post</div>
-                    </li>
-                    <li>
-                        <a href="#">Research Article</a>
-                        <div class="link-description">Published work or findings</div>
-                    </li>
-                    <li>
-                        <a href="#">Technical Tutorial</a>
-                        <div class="link-description">Guide or how-to</div>
-                    </li>
-                    <li>
-                        <a href="#">Project Demo</a>
-                        <div class="link-description">Live demo or video</div>
-                    </li>
-                </ul>
-            </div>
+    <div class="viewport">
+      <div class="track">
 
-            <div class="links-section">
-                <h3>Other</h3>
-                <ul class="links-list">
-                    <li><a href="#">Personal Blog</a></li>
-                    <li><a href="#">Kaggle Profile</a></li>
-                    <li><a href="#">Medium Articles</a></li>
-                </ul>
-            </div>
-        </aside>
+        <section class="panel" id="resume-panel" role="tabpanel" aria-labelledby="tab-resume">
+          <h2>Education</h2>
+          <div class="entry">
+            <div class="entry-head"><strong>Georgia Institute of Technology</strong><span class="date">Expected May 2028</span></div>
+            <div class="role">B.S. Computer Science · Threads: Systems &amp; Architecture, Information Internetworks · GPA 4.0</div>
+            <ul>
+              <li>Coursework: Operating Systems, Networking II, Algorithms Analysis, Processor Design, Linear Algebra</li>
+            </ul>
+          </div>
 
-        <!-- Right Content Area -->
-        <main class="content">
-            <section id="education">
-                <h2>Education</h2>
-                <div class="entry">
-                    <div class="entry-header">
-                        <span class="entry-title">Georgia Institute of Technology</span>
-                        <span class="entry-date">Graduating May 2028</span>
-                    </div>
-                    <div class="entry-subtitle">Bachelor of Science in Computer Science | Atlanta, GA</div>
-                    <div class="education-details">
-                        <strong>Concentrations:</strong> Systems & Architecture and Theory<br>
-                        <strong>GPA:</strong> 4.0<br>
-                        <strong>Relevant Coursework:</strong> Data Structures & Algorithms, Computer Design, Systems & Networks, Algorithms Analysis
-                    </div>
-                </div>
-            </section>
+          <h2>Experience</h2>
+          <div class="entry">
+            <div class="entry-head"><strong>Susquehanna International Group</strong><span class="date">Jun – Aug 2026</span></div>
+            <div class="role">Trading Systems Engineering Intern · Bala Cynwyd, PA</div>
+            <ul>
+              <li>Built a C++ market-making engine with two other interns; placed second across intern teams in both PnL and wire-to-wire latency (p50, p99)</li>
+              <li>Built a Bayesian intraday volume forecasting model that cut MSE 44% vs. a 30-day EMA volume profile on less liquid names and 21% on liquid names</li>
+              <li>Placed second on slippage variance with a C++ VWAP execution algorithm that scheduled fills using a market impact model driven by volume forecasts and short-term price signals</li>
+            </ul>
+          </div>
+          <div class="entry">
+            <div class="entry-head"><strong>Manhattan Associates</strong><span class="date">May – Aug 2025</span></div>
+            <div class="role">Software Engineering Intern, Cloud · Atlanta, GA</div>
+            <ul>
+              <li>Saved $53k/yr in cloud spend with a C# CI/CD pipeline that resizes VMs across multi-tenant groups</li>
+              <li>Reduced storage account spend 16% by automating file purging with a Python Azure Function</li>
+              <li>Enabled a Fortune 500 retailer to deploy custom business logic by architecting VPN and Azure Function integrations</li>
+            </ul>
+          </div>
+          <div class="entry">
+            <div class="entry-head"><strong>UGA Center for the Ecology of Infectious Diseases</strong><span class="date">Jun – Aug 2024</span></div>
+            <div class="role">Research Assistant (REU) · Athens, GA</div>
+            <ul>
+              <li>Built visualizations of state-level pandemic data in R to support a group modeling vaccination timing; presented findings to 15 researchers</li>
+            </ul>
+          </div>
+          <div class="entry">
+            <div class="entry-head"><strong>UGA School of Computing</strong><span class="date">Aug 2023 – May 2024</span></div>
+            <div class="role">Research Assistant · Athens, GA</div>
+            <ul>
+              <li>Co-authored a paper on transformer-based time series forecasting (BigData 2024)</li>
+              <li>Unified R and Python (PyTorch, TensorFlow) pipelines into a framework used by 4 graduate projects</li>
+            </ul>
+          </div>
 
-            <section id="experience">
-                <h2>Work Experience</h2>
-                
-                <div class="entry">
-                    <div class="entry-header">
-                        <span class="entry-title">Georgia Tech College of Computing</span>
-                        <span class="entry-date">Aug 2025 - Present</span>
-                    </div>
-                    <div class="entry-subtitle">Research Assistant | Atlanta, GA</div>
-                    <ul>
-                        <li>Designing parallel-system concurrency control scheme for B-skiplists</li>
-                    </ul>
-                </div>
+          <h2>Projects</h2>
+          <div class="entry">
+            <div class="entry-head"><strong>Throughput-Optimized Matching Engine</strong></div>
+            <ul>
+              <li>Frequent-batch-auction exchange in C++23 reaching 1.02M orders/s using batched syscalls</li>
+              <li>Used perf to trace bottlenecks such as an HPET clocksource inflating syscall cost and unbalanced softirq handling</li>
+              <li>Cut matching logic to ~2% of CPU time with a batched lock-free SPSC ring buffer; benchmarked io_uring against batched syscalls (no net gain on this workload)</li>
+            </ul>
+          </div>
+          <div class="entry">
+            <div class="entry-head"><strong>Kaggle ASHRAE III</strong></div>
+            <ul>
+              <li>Silver medal (top 3%) for predicting building energy consumption with a gradient-boosted tree ensemble</li>
+            </ul>
+          </div>
 
-                <div class="entry">
-                    <div class="entry-header">
-                        <span class="entry-title">Manhattan Associates</span>
-                        <span class="entry-date">May 2025 - Aug 2025</span>
-                    </div>
-                    <div class="entry-subtitle">Software Engineering Intern - Cloud | Atlanta, GA</div>
-                    <ul>
-                        <li>Saved $53k/yr in cloud spend by developing a CI/CD pipeline in C# to resize VMs across multi-tenant groups</li>
-                        <li>Reduced storage account spend by 16% by automating file purging with a Python Azure Function</li>
-                        <li>Enabled a $250B+ retailer to deploy custom business logic by architecting VPN and Azure Function integrations</li>
-                    </ul>
-                </div>
+          <h2>Publications</h2>
+          <div class="entry">
+            Rana, S., Miller, J.A., <strong>Nesbit, J.</strong>, Barna, N.H., Aldosari, M., Arpinar, I.B.
+            How Effective are Time Series Models for Pandemic Forecasting? <em>IEEE BigData 2024</em>.
+          </div>
 
-                <div class="entry">
-                    <div class="entry-header">
-                        <span class="entry-title">UGA School of Computing</span>
-                        <span class="entry-date">Aug 2023 - May 2024</span>
-                    </div>
-                    <div class="entry-subtitle">Research Assistant | Athens, GA</div>
-                    <ul>
-                        <li>Published main-author paper on transformer-based COVID-19 forecasting in <em>IEEE Big Data 2024</em></li>
-                        <li>Unified R and Python (PyTorch, TensorFlow) pipelines into a framework used by 4+ graduate projects</li>
-                    </ul>
-                </div>
+          <h2>Activities</h2>
+          <div class="entry">
+            <div class="entry-head"><strong>Georgia Tech Formula SAE Electric Racing</strong><span class="date">Jan – Apr 2025</span></div>
+            <div class="role">DriveBrain Software Engineer</div>
+            <ul>
+              <li>Added a torque controller to the software stack (server, CAN, Protobuf, microcontroller) for torque vectoring</li>
+              <li>Wrote car environment simulation software in C++ to speed up development cycles</li>
+            </ul>
+          </div>
 
-                <div class="entry">
-                    <div class="entry-header">
-                        <span class="entry-title">UGA Center for the Ecology of Infectious Diseases</span>
-                        <span class="entry-date">Jun 2024 - Aug 2024</span>
-                    </div>
-                    <div class="entry-subtitle">Research Assistant | Athens, GA</div>
-                    <ul>
-                        <li>Boosted structural equations model R squared from less than 0.05 to greater than 0.2 on state-level pandemic data by designing a mutual-information-based graph clustering algorithm in R</li>
-                        <li>Informed CDC vaccination priorities by drafting and presenting a white paper to 15+ researchers</li>
-                    </ul>
-                </div>
+          <h2>Skills</h2>
+          <dl class="skills">
+            <div><dt>Languages:</dt> <dd>C++, Python, C</dd></div>
+            <div><dt>Systems &amp; tooling:</dt> <dd>Linux, CMake, Nix, Git, perf, GDB</dd></div>
+            <div><dt>Libraries:</dt> <dd>PyTorch, NumPy, Pandas</dd></div>
+          </dl>
+        </section>
 
-                <div class="entry">
-                    <div class="entry-header">
-                        <span class="entry-title">Smith Temple Law, Norris Injury Law</span>
-                        <span class="entry-date">Feb 2023 - Jun 2023</span>
-                    </div>
-                    <div class="entry-subtitle">Software Contractor | Athens, GA</div>
-                    <ul>
-                        <li>Saved 200+ paralegal hours by creating a parallel information retrieval application in C#/.NET to search 3TB+ of images</li>
-                        <li>Iterated UI design through weekly demos, allowing rollout across the firms with minimal training</li>
-                    </ul>
-                </div>
-            </section>
+        <section class="panel" id="blog-panel" role="tabpanel" aria-labelledby="tab-blog">
+          <p class="blog-intro">Thought experiments, data explorations, and tales from the whirlwind.</p>
+          <ul class="post-list">
+            <li><a href="#the-high">The High</a><span class="date">May 2025</span></li>
+            <li><a href="#lets-dance">Let's Dance</a><span class="date">Nov 2025</span></li>
+          </ul>
 
-            <section id="publications">
-                <h2>Publications and Projects</h2>
-                <div class="publication">
-                    Rana, S., Miller, J.A., <strong>Nesbit, J.</strong>, Barna, N.H., Aldosari, M., Arpinar, I.B. (2025). <strong>How Effective are Time Series Models for Pandemic Forecasting?</strong> BIGDATA 2024.
-                </div>
-                <ul>
-                    <li><strong>Kaggle ASHRAE III Competition:</strong> Won a silver medal (top 3%) for predicting building energy consumption with a data pipeline of boosted trees, permutation importance tests, cross-validation, and ensembling models in Python</li>
-                    <li><strong>Autonomous Drone Project:</strong> Led a team of five people & wrote firmware in C++ for a 1m wingspan fixed-wing drone to autonomously turn and adjust altitude</li>
-                </ul>
-            </section>
+          <article id="the-high">
+            <h3>The High</h3>
+            <span class="date">May 2025</span>
+            <img src="high.jpg" alt="Museum installation" width="1400" height="955" loading="lazy">
+            <p>It is strange that the exhibit that caught my eye was the one I ought relate to least. There was a painful torsion in the bodies laid out before me. The circle of mangled steel around me spun, and I saw the motion of cavalry trampling children, the pleading mothers, and the fighting men. As I spun further, I saw those same mothers and fathers with sickles at the throats of fleeing crowds. The loop of devastation had no end, and the compassion of the story was rewarded only with blood.</p>
+            <p>I circled back toward the entrance. A composition of frames of life, music, and tradition laid behind a wall of shattered glass. Blood drooled out of bullet holes in every photo. In another layer, more photos, more sheet music was mâchéd with blood over some of the holes.</p>
+            <p>A Ziggurat, growing out of the canvas with its red clay bricks, loomed over me. Chains of slavery hung from the pinnacle of the structure, caked red.</p>
+          </article>
 
-            <section id="activities">
-                <h2>Activities and Leadership</h2>
-                <div class="entry">
-                    <div class="entry-header">
-                        <span class="entry-title">Georgia Tech Formula SAE Electric Racing</span>
-                        <span class="entry-date">Jan 2025 - Apr 2025</span>
-                    </div>
-                    <div class="entry-subtitle">DriveBrain Software Engineer | Atlanta, GA</div>
-                    <ul>
-                        <li>Accelerated development cycles by writing car environment simulation software in C++</li>
-                        <li>Added torque controller system to software stack (Server, CAN, Protobuf, Microcontroller) for torque vectoring</li>
-                        <li>Improved onboarding by extending documentation and gtest unit tests to outline expected behavior</li>
-                    </ul>
-                </div>
-            </section>
+          <article id="lets-dance">
+            <h3>Let's Dance</h3>
+            <span class="date">November 2025</span>
+            <img src="dance.jpg" alt="Blurred club lights over a crowd" class="portrait" width="1050" height="1400" loading="lazy">
+            <p>My world has been swirling lately. There is no one reason, no one question, no one confusion, but rather, an excited malaise, a feeling that sense has abandoned the world, and action alone has taken over.</p>
+            <p>So, we dance. We dance until things make sense again; we dance until the haze of the club is replaced by a clarity of regret.</p>
+            <p>I open my eyes under an array of laser light and let my head spin. My arms punch to the snap of a grated drum. Every spin of my head, every lyric shouted to a friend is another question answered. Every glimpse of my brother and his fiance twirling in the crowd gives me direction.</p>
+            <p>Oddly enough, in this moment of twirling, the swirling stopped.</p>
+          </article>
+        </section>
 
-            <section id="skills">
-                <h2>Technical Skills</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <span class="skill-label">Languages:</span> C++, Python, C, C#, Java
-                    </div>
-                    <div class="skill-category">
-                        <span class="skill-label">Technologies & Methodologies:</span> Azure, CI/CD, CMake, Docker, Nix, RESTful APIs, Git, Linux
-                    </div>
-                    <div class="skill-category">
-                        <span class="skill-label">Libraries & Frameworks:</span> PyTorch, NumPy/Pandas, TensorFlow, .NET
-                    </div>
-                </div>
-            </section>
-        </main>
+      </div>
     </div>
+
+    <footer>© 2026 John Nesbit</footer>
+  </div>
+
+  <script>
+    (function () {
+      var viewport = document.querySelector('.viewport');
+      var track = document.querySelector('.track');
+      var panels = { resume: document.getElementById('resume-panel'), blog: document.getElementById('blog-panel') };
+      var tabs = { resume: document.getElementById('tab-resume'), blog: document.getElementById('tab-blog') };
+      var current = null;
+
+      function fitHeight() {
+        viewport.style.height = panels[current].offsetHeight + 'px';
+      }
+
+      function show(name) {
+        current = name;
+        track.classList.toggle('show-blog', name === 'blog');
+        for (var key in panels) {
+          var active = key === name;
+          tabs[key].setAttribute('aria-selected', active);
+          panels[key].inert = !active;
+        }
+        fitHeight();
+      }
+
+      // Map the URL hash to a tab. #blog has no matching element (so the browser doesn't
+      // jump past the header); post anchors like #the-high open the blog and scroll to the post.
+      function route() {
+        var id = location.hash.slice(1);
+        var target = id && document.getElementById(id);
+        show(id === 'blog' || (target && panels.blog.contains(target)) ? 'blog' : 'resume');
+        if (target) target.scrollIntoView();
+      }
+
+      tabs.resume.addEventListener('click', function (e) {
+        e.preventDefault();
+        history.replaceState(null, '', location.pathname);
+        show('resume');
+      });
+      tabs.blog.addEventListener('click', function (e) {
+        e.preventDefault();
+        history.replaceState(null, '', '#blog');
+        show('blog');
+      });
+
+      window.addEventListener('hashchange', route);
+      if (window.ResizeObserver) {
+        var ro = new ResizeObserver(function () { fitHeight(); });
+        ro.observe(panels.resume);
+        ro.observe(panels.blog);
+      } else {
+        window.addEventListener('resize', fitHeight);
+      }
+      route();
+    })();
+  </script>
 </body>
 </html>
